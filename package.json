@@ -1,5 +1,5 @@
 {
-  "name": "WebWatcher",
+  "name": "webwatcher",
   "version": "1.0.0",
   "main": "start.js",
   "dependencies": {
@@ -9,8 +9,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start.js"
   },
   "author": "Daniel Ryding",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
