@@ -54,7 +54,22 @@ function extractDetails(url, htmlbody, index)
 		inspectionTimes.push(name + ": " + time);
 	});
 
-	return { "index": index + 1, "uRL": url, "address": streetAddress + ', ' + addressLocality, "price": priceText, "inspectionTimes": inspectionTimes };
+	// Get Agents
+	var agents = [];
+	$('.agent .agentContactInfo').each(function () {
+		var name = $(this).find('.agentName').text();
+		var number = $(this).find('.contactDetails .phone').text();
+		var item = name + ": " + number;
+		// For some reason the names are duplicated, so filter them out.
+		if (agents.indexOf(item) === -1) {
+			agents.push(item);
+		}
+	});
+
+	// Available
+	var available = $('.available_date span').html();
+
+	return { "index": index + 1, "uRL": url, "address": streetAddress + ', ' + addressLocality, "price": priceText, "inspectionTimes": inspectionTimes, 'agents': agents, 'available': available };
 }
 
 function PrintResults(results)
@@ -66,6 +81,10 @@ function PrintResults(results)
 			console.log('=================================================================================================='.grey);
 			console.log((results[i].index + ': ' + results[i].uRL).yellow);
 			console.log(results[i].address);
+			console.log(results[i].available.grey);
+			for (j = 0; j < results[i].agents.length; j++) {
+				console.log(results[i].agents[j].blue);
+			}
 			console.log(results[i].price);
 			for (j = 0; j < results[i].inspectionTimes.length; j++) {
 				console.log(results[i].inspectionTimes[j].red);
